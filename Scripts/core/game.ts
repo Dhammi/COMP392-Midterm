@@ -49,6 +49,10 @@ var game = (() => {
     var cube3: Mesh;
     var cube4: Mesh;
     var cube5: Mesh;
+    var cube6: Mesh;
+    var cube7: Mesh;
+    var cube8: Mesh;
+    var globe: Mesh;
     
     var planeGeometry: PlaneGeometry;
     var cube0CubeGeometry: CubeGeometry;
@@ -57,6 +61,9 @@ var game = (() => {
     var cube3CubeGeometry: CubeGeometry;
     var cube4CubeGeometry: CubeGeometry;
     var cube5CubeGeometry: CubeGeometry;
+    var cube6CubeGeometry: CubeGeometry;
+    var cube7CubeGeometry: CubeGeometry;
+    var cube8CubeGeometry: CubeGeometry;
     
     var planeMaterial: LambertMaterial;
     var cube0CubeMaterial: LambertMaterial;
@@ -65,6 +72,10 @@ var game = (() => {
     var cube3CubeMaterial: LambertMaterial;
     var cube4CubeMaterial: LambertMaterial;
     var cube5CubeMaterial: LambertMaterial;
+    var cube6CubeMaterial: LambertMaterial;
+    var cube7CubeMaterial: LambertMaterial;
+    var cube8CubeMaterial: LambertMaterial;
+    
     
 
     var ambientLight: AmbientLight;
@@ -159,6 +170,47 @@ var game = (() => {
         cube3.position.z = 0;
         console.log("Cube 3 created");
         
+        // Create a Cube 4
+        cube4CubeGeometry = new CubeGeometry(1.5, 4, 1.5);
+        cube4CubeMaterial = new LambertMaterial({ color: 0x003366 });
+        cube4 = new Mesh(cube4CubeGeometry, cube4CubeMaterial);
+        cube4.castShadow = true;
+        cube4.receiveShadow = true;
+        cube4.position.x = 0;
+        cube4.position.y = 9;
+        cube4.position.z = 0;
+        console.log("Cube 4 created");
+        
+        //add globe
+        globe = new gameObject(
+            new SphereGeometry(2, 32, 32),
+            new LambertMaterial({map: THREE.ImageUtils.loadTexture("img/globe.jpg")}),
+            0, 12, 0);
+        scene.add(globe);
+        console.log("Sun added to scene...");
+        
+        // Create a Cube 5
+        cube5CubeGeometry = new CubeGeometry(1.5, 4, 1.5);
+        cube5CubeMaterial = new LambertMaterial({ color: 0xFF6600 });
+        cube5 = new Mesh(cube5CubeGeometry, cube5CubeMaterial);
+        cube5.castShadow = true;
+        cube5.receiveShadow = true;
+        cube5.position.x = 0;
+        cube5.position.y = 14;
+        cube5.position.z = 0;
+        console.log("Cube 5 created");
+        
+        // Create a Cube 6
+        cube6CubeGeometry = new CubeGeometry(0.5, 3, 0.5);
+        cube6CubeMaterial = new LambertMaterial({ color: 0x000000 });
+        cube6 = new Mesh(cube6CubeGeometry, cube6CubeMaterial);
+        cube6.castShadow = true;
+        cube6.receiveShadow = true;
+        cube6.position.x = 0;
+        cube6.position.y = 17;
+        cube6.position.z = 0;
+        console.log("Cube 6 created");
+        
         // Add all the parts to the tower object
         tower = new THREE.Object3D(); 
         
@@ -166,6 +218,9 @@ var game = (() => {
         tower.add(cube1);
         tower.add(cube2);
         tower.add(cube3);
+        tower.add(cube4);
+        tower.add(cube5);
+        tower.add(cube6);
         
         
         // Add humanoid to the Scene
@@ -208,6 +263,10 @@ var game = (() => {
         cube1.rotation.y -= control.y_rotationSpeed;
         cube2.rotation.y += control.y_rotationSpeed;
         cube3.rotation.y -= control.y_rotationSpeed;
+        cube4.rotation.y += control.y_rotationSpeed;
+        cube5.rotation.y -= control.y_rotationSpeed;
+        cube6.rotation.y += control.y_rotationSpeed;
+        globe.rotation.y += control.y_rotationSpeed;
         
         // render using requestAnimationFrame
         requestAnimationFrame(gameLoop);
